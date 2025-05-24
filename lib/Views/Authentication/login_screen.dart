@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_repairing_application__prototype/Components/glassmorphic_text_field.dart';
-import 'package:mobile_repairing_application__prototype/Controllers/imput_controllers.dart';
+import 'package:mobile_repairing_application__prototype/Controllers/input_controllers.dart';
+import 'package:mobile_repairing_application__prototype/services/auth_service.dart';
 import 'dart:ui';
 import 'signup_screen.dart';
 
@@ -18,7 +19,10 @@ class _LoginScreenState extends State<LoginScreen>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final InputControllers inputControllers = InputControllers();
+  final AuthService _authService = AuthService();
   bool _isPasswordVisible = false;
+  bool _isLoading = false;
+  String? _errorMessage;
   late AnimationController _glowController;
   late Animation<double> _glowAnimation;
 
@@ -37,6 +41,55 @@ class _LoginScreenState extends State<LoginScreen>
       curve: Curves.easeInOut,
     ));
     _glowController.repeat(reverse: true);
+  }
+
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final user = await _authService.login(
+        email: inputControllers.emailController.text,
+        password: inputControllers.passwordController.text,
+      );
+
+      if (user != null) {
+        if (!mounted) return;
+
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Welcome back, ${user.name}!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        // TODO: Navigate to appropriate screen based on role
+        // if (user.role == 'technician') {
+        //   Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => TechnicianDashboard()),
+        //   );
+        // } else {
+        //   Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => UserDashboard()),
+        //   );
+        // }
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = e.toString().replaceAll('Exception: ', '');
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -221,6 +274,18 @@ class _LoginScreenState extends State<LoginScreen>
                                   return null;
                                 },
                               ),
+                              if (_errorMessage != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 16),
+                                  child: Text(
+                                    _errorMessage!,
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 14,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                               const SizedBox(height: 30),
                               // Login Button
                               Container(
@@ -244,19 +309,7 @@ class _LoginScreenState extends State<LoginScreen>
                                   ],
                                 ),
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      // TODO: Implement login logic
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Login functionality would be implemented here'),
-                                          backgroundColor: Colors.green,
-                                        ),
-                                      );
-                                    }
-                                  },
+                                  onPressed: _isLoading ? null : _login,
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.transparent,
                                     shadowColor: Colors.transparent,
@@ -264,14 +317,23 @@ class _LoginScreenState extends State<LoginScreen>
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                   ),
-                                  child: Text(
-                                    'Login',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                                  child: _isLoading
+                                      ? const SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 2,
+                                          ),
+                                        )
+                                      : Text(
+                                          'Login',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                 ),
                               ),
                             ],

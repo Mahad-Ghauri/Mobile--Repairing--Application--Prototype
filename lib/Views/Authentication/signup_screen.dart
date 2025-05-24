@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_repairing_application__prototype/Components/glassmorphic_text_field.dart';
+import 'package:mobile_repairing_application__prototype/Controllers/input_controllers.dart';
+import 'package:mobile_repairing_application__prototype/services/auth_service.dart';
 import 'dart:ui';
-import 'package:mobile_repairing_application__prototype/Controllers/imput_controllers.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -17,10 +18,13 @@ class _SignupScreenState extends State<SignupScreen>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final InputControllers inputControllers = InputControllers();
+  final AuthService _authService = AuthService();
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
   bool _isTechnician = false;
   bool _acceptedTerms = false;
+  bool _isLoading = false;
+  String? _errorMessage;
   late AnimationController _glowController;
   late Animation<double> _glowAnimation;
   late AnimationController _slideController;
@@ -54,6 +58,56 @@ class _SignupScreenState extends State<SignupScreen>
       curve: Curves.easeOutCubic,
     ));
     _slideController.forward();
+  }
+
+  Future<void> _signUp() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final user = await _authService.signUp(
+        name: inputControllers.nameController.text,
+        email: inputControllers.emailController.text,
+        password: inputControllers.passwordController.text,
+        phone: inputControllers.phoneController?.text ?? '',
+        role: _isTechnician ? 'technician' : 'user',
+      );
+
+      if (user != null && mounted) {
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Account created successfully for ${user.name}!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        // TODO: Navigate to appropriate screen based on role
+        // if (user.role == 'technician') {
+        //   Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => TechnicianDashboard()),
+        //   );
+        // } else {
+        //   Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => UserDashboard()),
+        //   );
+        // }
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = e.toString().replaceAll('Exception: ', '');
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -449,7 +503,21 @@ class _SignupScreenState extends State<SignupScreen>
                                       ],
                                     ),
                                     const SizedBox(height: 30),
-                                    // Sign Up Button
+                                    // Add error message display
+                                    if (_errorMessage != null)
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 16),
+                                        child: Text(
+                                          _errorMessage!,
+                                          style: const TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 14,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    // Update the Sign Up Button
                                     Container(
                                       width: double.infinity,
                                       height: 56,
@@ -481,22 +549,7 @@ class _SignupScreenState extends State<SignupScreen>
                                       ),
                                       child: ElevatedButton(
                                         onPressed: _acceptedTerms
-                                            ? () {
-                                                if (_formKey.currentState!
-                                                    .validate()) {
-                                                  // TODO: Implement signup logic
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'Account created for ${_isTechnician ? 'Technician' : 'User'}!',
-                                                      ),
-                                                      backgroundColor:
-                                                          Colors.green,
-                                                    ),
-                                                  );
-                                                }
-                                              }
+                                            ? (_isLoading ? null : _signUp)
                                             : null,
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.transparent,
@@ -506,14 +559,24 @@ class _SignupScreenState extends State<SignupScreen>
                                                 BorderRadius.circular(16),
                                           ),
                                         ),
-                                        child: Text(
-                                          'Create Account',
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                                        child: _isLoading
+                                            ? const SizedBox(
+                                                width: 24,
+                                                height: 24,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                  strokeWidth: 2,
+                                                ),
+                                              )
+                                            : Text(
+                                                'Create Account',
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
                                       ),
                                     ),
                                   ],
