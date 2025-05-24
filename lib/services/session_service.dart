@@ -1,4 +1,5 @@
-import 'package:mobile_repairing_application__prototype/models/user.dart';
+import 'dart:convert';
+import 'package:mobile_repairing_application__prototype/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionService {
@@ -22,14 +23,19 @@ class SessionService {
     if (_isLoggedIn) {
       final userJson = prefs.getString(_userKey);
       if (userJson != null) {
-        _currentUser = User.fromJson(userJson as Map<String, dynamic>);
+        try {
+          final Map<String, dynamic> userMap = jsonDecode(userJson);
+          _currentUser = User.fromMap(userMap);
+        } catch (e) {
+          print('Error parsing user data: $e');
+        }
       }
     }
   }
 
   Future<void> setSession(User user, String userType) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_userKey, user.toJson() as String);
+    await prefs.setString(_userKey, jsonEncode(user.toMap()));
     await prefs.setString(_userTypeKey, userType);
     await prefs.setBool(_isLoggedInKey, true);
 

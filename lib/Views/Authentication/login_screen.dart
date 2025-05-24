@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +7,7 @@ import 'package:mobile_repairing_application__prototype/Controllers/input_contro
 import 'package:mobile_repairing_application__prototype/Views/Dashboard/technician_dashboard.dart';
 import 'package:mobile_repairing_application__prototype/Views/Dashboard/user_dashboard.dart';
 import 'package:mobile_repairing_application__prototype/services/auth_service.dart';
+import 'package:mobile_repairing_application__prototype/services/session_service.dart';
 import 'dart:ui';
 import 'signup_screen.dart';
 
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen>
   final _formKey = GlobalKey<FormState>();
   final InputControllers inputControllers = InputControllers();
   final AuthService _authService = AuthService();
+  final SessionService _sessionService = SessionService();
   bool _isPasswordVisible = false;
   bool _isLoading = false;
   String? _errorMessage;
@@ -43,7 +45,23 @@ class _LoginScreenState extends State<LoginScreen>
       curve: Curves.easeInOut,
     ));
     _glowController.repeat(reverse: true);
+
+    // Initialize the session service
+    _sessionService.initialize();
   }
+
+  @override
+  void dispose() {
+    _glowController.dispose();
+    inputControllers.emailController.dispose();
+    inputControllers.passwordController.dispose();
+    super.dispose();
+  }
+  // @override
+  // void dispose() {
+  //   _glowController.dispose();
+  //   super.dispose();
+  // }
 
   Future<void> _login() async {
     if (!_formKey.currentState!.validate()) return;
@@ -62,6 +80,9 @@ class _LoginScreenState extends State<LoginScreen>
       if (user != null) {
         if (!mounted) return;
 
+        // Set the user session
+        await _sessionService.setSession(user, user.role);
+
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -70,16 +91,20 @@ class _LoginScreenState extends State<LoginScreen>
           ),
         );
 
-        // TODO: Navigate to appropriate screen based on role
+        // Navigate to appropriate screen based on role
         if (user.role == 'technician') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const TechnicianDashboard(sessionService: null,)),
+            MaterialPageRoute(
+                builder: (context) =>
+                    TechnicianDashboard(sessionService: _sessionService)),
           );
         } else {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const UserDashboard(sessionService: null,)),
+            MaterialPageRoute(
+                builder: (context) =>
+                    UserDashboard(sessionService: _sessionService)),
           );
         }
       }
@@ -389,13 +414,5 @@ class _LoginScreenState extends State<LoginScreen>
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _glowController.dispose();
-    inputControllers.emailController.dispose();
-    inputControllers.passwordController.dispose();
-    super.dispose();
   }
 }

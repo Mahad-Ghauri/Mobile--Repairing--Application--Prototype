@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +8,8 @@ import 'package:mobile_repairing_application__prototype/Views/Dashboard/technici
 import 'package:mobile_repairing_application__prototype/Views/Dashboard/user_dashboard.dart';
 import 'package:mobile_repairing_application__prototype/services/auth_service.dart';
 import 'dart:ui';
+
+import 'package:mobile_repairing_application__prototype/services/session_service.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -27,26 +29,29 @@ class _SignupScreenState extends State<SignupScreen>
   bool _acceptedTerms = false;
   bool _isLoading = false;
   String? _errorMessage;
-  late AnimationController _glowController;
-  late Animation<double> _glowAnimation;
+  final SessionService _sessionService = SessionService();
+
+  // late AnimationController _glowController;
+  // late Animation<double> _glowAnimation;
   late AnimationController _slideController;
   late Animation<Offset> _slideAnimation;
 
   @override
   void initState() {
     super.initState();
-    _glowController = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    );
-    _glowAnimation = Tween<double>(
-      begin: 0.3,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _glowController,
-      curve: Curves.easeInOut,
-    ));
-    _glowController.repeat(reverse: true);
+    // _glowController = AnimationController(
+    //   duration: const Duration(seconds: 2),
+    //   vsync: this,
+    // );
+    // _glowAnimation = Tween<double>(
+    //   begin: 0.3,
+    //   end: 1.0,
+    // ).animate(CurvedAnimation(
+    //   parent: _glowController,
+    //   curve: Curves.easeInOut,
+    // ));
+    // _glowController.repeat(reverse: true);
+    _sessionService.initialize(); // Initialize session service
 
     _slideController = AnimationController(
       duration: const Duration(milliseconds: 800),
@@ -79,25 +84,34 @@ class _SignupScreenState extends State<SignupScreen>
         role: _isTechnician ? 'technician' : 'user',
       );
 
-      if (user != null && mounted) {
+      if (user != null) {
+        if (!mounted) return;
+
+        // Set the user session
+        await _sessionService.setSession(user, user.role);
+
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Account created successfully for ${user.name}!'),
+            content: Text('Welcome back, ${user.name}!'),
             backgroundColor: Colors.green,
           ),
         );
 
-        // TODO: Navigate to appropriate screen based on role
+        // Navigate to appropriate screen based on role
         if (user.role == 'technician') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => TechnicianDashboard(sessionService: null,)),
+            MaterialPageRoute(
+                builder: (context) =>
+                    TechnicianDashboard(sessionService: _sessionService)),
           );
         } else {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => UserDashboard(sessionService: null,)),
+            MaterialPageRoute(
+                builder: (context) =>
+                    UserDashboard(sessionService: _sessionService)),
           );
         }
       }
@@ -602,7 +616,7 @@ class _SignupScreenState extends State<SignupScreen>
 
   @override
   void dispose() {
-    _glowController.dispose();
+    // _glowController.dispose();
     _slideController.dispose();
     inputControllers.nameController.dispose();
     inputControllers.emailController.dispose();
