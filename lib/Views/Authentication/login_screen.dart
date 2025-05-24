@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_repairing_application__prototype/Components/glassmorphic_text_field.dart';
 import 'package:mobile_repairing_application__prototype/Controllers/input_controllers.dart';
+import 'package:mobile_repairing_application__prototype/Views/Dashboard/technician_dashboard.dart';
+import 'package:mobile_repairing_application__prototype/Views/Dashboard/user_dashboard.dart';
 import 'package:mobile_repairing_application__prototype/services/auth_service.dart';
 import 'dart:ui';
 import 'signup_screen.dart';
@@ -69,17 +71,17 @@ class _LoginScreenState extends State<LoginScreen>
         );
 
         // TODO: Navigate to appropriate screen based on role
-        // if (user.role == 'technician') {
-        //   Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => TechnicianDashboard()),
-        //   );
-        // } else {
-        //   Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => UserDashboard()),
-        //   );
-        // }
+        if (user.role == 'technician') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const TechnicianDashboard(sessionService: null,)),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const UserDashboard(sessionService: null,)),
+          );
+        }
       }
     } catch (e) {
       setState(() {

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_repairing_application__prototype/Components/glassmorphic_text_field.dart';
 import 'package:mobile_repairing_application__prototype/Controllers/input_controllers.dart';
+import 'package:mobile_repairing_application__prototype/Views/Dashboard/technician_dashboard.dart';
+import 'package:mobile_repairing_application__prototype/Views/Dashboard/user_dashboard.dart';
 import 'package:mobile_repairing_application__prototype/services/auth_service.dart';
 import 'dart:ui';
 
@@ -87,17 +89,17 @@ class _SignupScreenState extends State<SignupScreen>
         );
 
         // TODO: Navigate to appropriate screen based on role
-        // if (user.role == 'technician') {
-        //   Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => TechnicianDashboard()),
-        //   );
-        // } else {
-        //   Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => UserDashboard()),
-        //   );
-        // }
+        if (user.role == 'technician') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => TechnicianDashboard(sessionService: null,)),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => UserDashboard(sessionService: null,)),
+          );
+        }
       }
     } catch (e) {
       setState(() {
@@ -132,7 +134,7 @@ class _SignupScreenState extends State<SignupScreen>
             children: [
               // Custom App Bar
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
                     ClipRRect(
@@ -173,71 +175,71 @@ class _SignupScreenState extends State<SignupScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Glowing Logo Circle
-                        Center(
-                          child: AnimatedBuilder(
-                            animation: _glowAnimation,
-                            builder: (context, child) {
-                              return Container(
-                                width: 120,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.white.withOpacity(
-                                          _glowAnimation.value * 0.8),
-                                      blurRadius: 25 * _glowAnimation.value,
-                                      spreadRadius: 4 * _glowAnimation.value,
-                                    ),
-                                    BoxShadow(
-                                      color: Colors.blue.withOpacity(
-                                          _glowAnimation.value * 0.6),
-                                      blurRadius: 35 * _glowAnimation.value,
-                                      spreadRadius: 8 * _glowAnimation.value,
-                                    ),
-                                    BoxShadow(
-                                      color: Colors.purple.withOpacity(
-                                          _glowAnimation.value * 0.4),
-                                      blurRadius: 45 * _glowAnimation.value,
-                                      spreadRadius: 12 * _glowAnimation.value,
-                                    ),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(60),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                        sigmaX: 10, sigmaY: 10),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                          colors: [
-                                            Colors.white.withOpacity(0.3),
-                                            Colors.white.withOpacity(0.1),
-                                          ],
-                                        ),
-                                        border: Border.all(
-                                          color: Colors.white.withOpacity(0.2),
-                                          width: 1.5,
-                                        ),
-                                      ),
-                                      child: const Icon(
-                                        Icons.person_add,
-                                        size: 50,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 30),
+                        // // Glowing Logo Circle
+                        // Center(
+                        //   child: AnimatedBuilder(
+                        //     animation: _glowAnimation,
+                        //     builder: (context, child) {
+                        //       return Container(
+                        //         width: 120,
+                        //         height: 120,
+                        //         decoration: BoxDecoration(
+                        //           shape: BoxShape.circle,
+                        //           boxShadow: [
+                        //             BoxShadow(
+                        //               color: Colors.white.withOpacity(
+                        //                   _glowAnimation.value * 0.8),
+                        //               blurRadius: 25 * _glowAnimation.value,
+                        //               spreadRadius: 4 * _glowAnimation.value,
+                        //             ),
+                        //             BoxShadow(
+                        //               color: Colors.blue.withOpacity(
+                        //                   _glowAnimation.value * 0.6),
+                        //               blurRadius: 35 * _glowAnimation.value,
+                        //               spreadRadius: 8 * _glowAnimation.value,
+                        //             ),
+                        //             BoxShadow(
+                        //               color: Colors.purple.withOpacity(
+                        //                   _glowAnimation.value * 0.4),
+                        //               blurRadius: 45 * _glowAnimation.value,
+                        //               spreadRadius: 12 * _glowAnimation.value,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         child: ClipRRect(
+                        //           borderRadius: BorderRadius.circular(60),
+                        //           child: BackdropFilter(
+                        //             filter: ImageFilter.blur(
+                        //                 sigmaX: 10, sigmaY: 10),
+                        //             child: Container(
+                        //               decoration: BoxDecoration(
+                        //                 shape: BoxShape.circle,
+                        //                 gradient: LinearGradient(
+                        //                   begin: Alignment.topLeft,
+                        //                   end: Alignment.bottomRight,
+                        //                   colors: [
+                        //                     Colors.white.withOpacity(0.3),
+                        //                     Colors.white.withOpacity(0.1),
+                        //                   ],
+                        //                 ),
+                        //                 border: Border.all(
+                        //                   color: Colors.white.withOpacity(0.2),
+                        //                   width: 1.5,
+                        //                 ),
+                        //               ),
+                        //               child: const Icon(
+                        //                 Icons.person_add,
+                        //                 size: 50,
+                        //                 color: Colors.white,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       );
+                        //     },
+                        //   ),
+                        // ),
+                        const SizedBox(height: 0),
                         Text(
                           'Create Account',
                           style: GoogleFonts.poppins(
@@ -388,7 +390,7 @@ class _SignupScreenState extends State<SignupScreen>
                                         filter: ImageFilter.blur(
                                             sigmaX: 10, sigmaY: 10),
                                         child: Container(
-                                          padding: const EdgeInsets.all(16),
+                                          padding: const EdgeInsets.all(13),
                                           decoration: BoxDecoration(
                                             gradient: LinearGradient(
                                               colors: [
@@ -475,7 +477,7 @@ class _SignupScreenState extends State<SignupScreen>
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
+                                    const SizedBox(height: 10),
                                     // Terms and Conditions
                                     Row(
                                       children: [
@@ -502,7 +504,7 @@ class _SignupScreenState extends State<SignupScreen>
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 30),
+                                    const SizedBox(height: 10),
                                     // Add error message display
                                     if (_errorMessage != null)
                                       Padding(
