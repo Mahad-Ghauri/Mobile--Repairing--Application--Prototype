@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'screens/splash_screen.dart';
+import 'package:mobile_repairing_application__prototype/Views/Authentication/login_screen.dart';
+import 'Views/Interface/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const SplashScreen(),
+      home: const LoginScreen(),
     );
   }
 }
