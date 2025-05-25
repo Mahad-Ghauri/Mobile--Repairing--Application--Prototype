@@ -20,9 +20,9 @@ class _ShopListingScreenState extends State<ShopListingScreen> {
   final List<Shop> _shops = [
     Shop(
       id: 1,
-      name: 'Mobile Fix Express',
-      address: '123 Main St, New York, NY',
-      phone: '+1 (555) 123-4567',
+      name: 'Ghani Mobile Repair',
+      address: 'Gardezi Market Multan, Pakistan',
+      phone: '06123456789',
       description:
           'Fast and reliable mobile repair services. We specialize in screen replacements, battery replacements, and water damage repair.',
       imageUrl:
@@ -34,9 +34,9 @@ class _ShopListingScreenState extends State<ShopListingScreen> {
     ),
     Shop(
       id: 2,
-      name: 'Tech Repair Hub',
-      address: '456 Oak Ave, Los Angeles, CA',
-      phone: '+1 (555) 987-6543',
+      name: 'Khan Mobile Services',
+      address: 'Khan Market, Lahore, Pakistan',
+      phone: '031020264989',
       description:
           'Professional repair services for all types of mobile devices. Same-day service available.',
       imageUrl:
@@ -52,9 +52,9 @@ class _ShopListingScreenState extends State<ShopListingScreen> {
     ),
     Shop(
       id: 3,
-      name: 'Phone Doctor',
-      address: '789 Pine St, Chicago, IL',
-      phone: '+1 (555) 456-7890',
+      name: 'Malik Phone Lab',
+      address: 'Khan Plaza Multan, Pakistan',
+      phone: '03001234567',
       description:
           'Expert phone repair with lifetime warranty. We fix all brands and models.',
       imageUrl:
@@ -70,9 +70,9 @@ class _ShopListingScreenState extends State<ShopListingScreen> {
     ),
     Shop(
       id: 4,
-      name: 'iRepair Center',
-      address: '321 Elm St, Houston, TX',
-      phone: '+1 (555) 789-0123',
+      name: 'iPoint',
+      address: 'lahore city center, pakistan',
+      phone: '9231045689',
       description:
           'Specialized in Apple device repairs. Certified technicians and genuine parts.',
       imageUrl:
@@ -83,9 +83,9 @@ class _ShopListingScreenState extends State<ShopListingScreen> {
     ),
     Shop(
       id: 5,
-      name: 'Quick Mobile Fix',
-      address: '654 Maple Ave, Phoenix, AZ',
-      phone: '+1 (555) 234-5678',
+      name: 'Multan Electronics Repair',
+      address: 'Multan Electronics Market, Pakistan',
+      phone: '06123456789',
       description:
           'Fast and affordable mobile repair services. Most repairs done in 30 minutes or less.',
       imageUrl:

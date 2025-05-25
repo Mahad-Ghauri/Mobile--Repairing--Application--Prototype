@@ -271,21 +271,21 @@ class UserDashboard extends StatelessWidget {
                       children: [
                         _buildShopItem(
                           context,
-                          'Mobile Fix Express',
+                          'Ghani Moboile Repairs',
                           4.8,
                           'https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
                           true,
                         ),
                         _buildShopItem(
                           context,
-                          'Tech Repair Hub',
+                          'Khan Mobile Service',
                           4.5,
                           'https://images.unsplash.com/photo-1546027658-7aa750153465?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
                           false,
                         ),
                         _buildShopItem(
                           context,
-                          'Phone Doctor',
+                          'Malik Phone Lab',
                           4.7,
                           'https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
                           true,
