@@ -83,7 +83,7 @@ class ShopDetailScreen extends StatelessWidget {
               ),
             ],
           ),
-          
+
           // Shop Details
           SliverToBoxAdapter(
             child: Padding(
@@ -160,9 +160,9 @@ class ShopDetailScreen extends StatelessWidget {
                         ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Contact Information
                   _buildInfoSection(
                     context,
@@ -173,9 +173,9 @@ class ShopDetailScreen extends StatelessWidget {
                       _buildInfoRow(Icons.phone, shop.phone),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Description
                   _buildInfoSection(
                     context,
@@ -191,9 +191,9 @@ class ShopDetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Services
                   _buildInfoSection(
                     context,
@@ -209,10 +209,14 @@ class ShopDetailScreen extends StatelessWidget {
                               vertical: 8,
                             ),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor.withOpacity(0.1),
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.1),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: Theme.of(context).primaryColor.withOpacity(0.3),
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.3),
                               ),
                             ),
                             child: Text(
@@ -227,30 +231,30 @@ class ShopDetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Reviews Section (Placeholder)
                   _buildInfoSection(
                     context,
                     'Reviews',
                     [
                       _buildReviewItem(
-                        'John Doe',
+                        'Ahmer',
                         4.5,
                         'Great service! They fixed my iPhone screen in just 30 minutes. Very professional and affordable.',
                         '2 days ago',
                       ),
                       const Divider(),
                       _buildReviewItem(
-                        'Jane Smith',
+                        'SamiUllah',
                         5.0,
                         'Excellent repair shop. They replaced my battery and now my phone lasts all day. Highly recommended!',
                         '1 week ago',
                       ),
                       const Divider(),
                       _buildReviewItem(
-                        'Mike Johnson',
+                        'Abdullah',
                         4.0,
                         'Good service overall. Fixed my charging port issue quickly.',
                         '2 weeks ago',
@@ -271,7 +275,7 @@ class ShopDetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 80), // Space for the button
                 ],
               ),
