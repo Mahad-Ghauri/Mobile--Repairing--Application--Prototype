@@ -29,7 +29,7 @@ class _EarningsScreenState extends State<EarningsScreen> {
   final List<Map<String, dynamic>> _earningsData = [
     {
       'id': 1,
-      'customerName': 'John Doe',
+      'customerName': 'Ali Hamza',
       'deviceType': 'iPhone 13',
       'service': 'Screen replacement',
       'date': DateTime.now().subtract(const Duration(days: 2)),
@@ -37,7 +37,7 @@ class _EarningsScreenState extends State<EarningsScreen> {
     },
     {
       'id': 2,
-      'customerName': 'Jane Smith',
+      'customerName': 'Ahmer',
       'deviceType': 'Samsung Galaxy S21',
       'service': 'Battery replacement',
       'date': DateTime.now().subtract(const Duration(days: 5)),
@@ -45,7 +45,7 @@ class _EarningsScreenState extends State<EarningsScreen> {
     },
     {
       'id': 3,
-      'customerName': 'Mike Johnson',
+      'customerName': 'SamiUllah',
       'deviceType': 'Google Pixel 6',
       'service': 'Software issues',
       'date': DateTime.now().subtract(const Duration(days: 10)),

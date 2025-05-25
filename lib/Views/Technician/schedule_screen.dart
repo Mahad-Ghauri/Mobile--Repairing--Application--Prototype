@@ -20,7 +20,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   final List<Map<String, dynamic>> _appointments = [
     {
       'id': 1,
-      'customerName': 'John Doe',
+      'customerName': 'Ali Hamza',
       'deviceType': 'iPhone 13',
       'issue': 'Screen replacement',
       'time': '09:00 AM',
@@ -28,7 +28,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     },
     {
       'id': 2,
-      'customerName': 'Jane Smith',
+      'customerName': 'Ahmer',
       'deviceType': 'Samsung Galaxy S21',
       'issue': 'Battery replacement',
       'time': '11:30 AM',
@@ -36,7 +36,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     },
     {
       'id': 3,
-      'customerName': 'Mike Johnson',
+      'customerName': 'SamiUllah',
       'deviceType': 'Google Pixel 6',
       'issue': 'Software issues',
       'time': '02:00 PM',

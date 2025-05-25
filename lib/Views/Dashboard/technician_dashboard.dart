@@ -223,7 +223,7 @@ class TechnicianDashboard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Customer: John Doe',
+                  'Customer: Ali Hamza',
                   style: GoogleFonts.poppins(
                     color: Colors.grey[600],
                   ),

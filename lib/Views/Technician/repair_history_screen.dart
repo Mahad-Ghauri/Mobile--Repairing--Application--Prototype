@@ -17,13 +17,18 @@ class RepairHistoryScreen extends StatefulWidget {
 
 class _RepairHistoryScreenState extends State<RepairHistoryScreen> {
   String _selectedFilter = 'All';
-  final List<String> _filterOptions = ['All', 'This Week', 'This Month', 'Last Month'];
-  
+  final List<String> _filterOptions = [
+    'All',
+    'This Week',
+    'This Month',
+    'Last Month'
+  ];
+
   // Sample repair history data
   final List<Map<String, dynamic>> _repairHistory = [
     {
       'id': 1,
-      'customerName': 'John Doe',
+      'customerName': 'Ali Hamza',
       'deviceType': 'iPhone 13',
       'issue': 'Screen replacement',
       'date': DateTime.now().subtract(const Duration(days: 2)),
@@ -32,7 +37,7 @@ class _RepairHistoryScreenState extends State<RepairHistoryScreen> {
     },
     {
       'id': 2,
-      'customerName': 'Jane Smith',
+      'customerName': 'Ahmer',
       'deviceType': 'Samsung Galaxy S21',
       'issue': 'Battery replacement',
       'date': DateTime.now().subtract(const Duration(days: 5)),
@@ -41,7 +46,7 @@ class _RepairHistoryScreenState extends State<RepairHistoryScreen> {
     },
     {
       'id': 3,
-      'customerName': 'Mike Johnson',
+      'customerName': 'SamiUllah',
       'deviceType': 'Google Pixel 6',
       'issue': 'Software issues',
       'date': DateTime.now().subtract(const Duration(days: 10)),
@@ -50,7 +55,7 @@ class _RepairHistoryScreenState extends State<RepairHistoryScreen> {
     },
     {
       'id': 4,
-      'customerName': 'Sarah Williams',
+      'customerName': 'Fatima',
       'deviceType': 'OnePlus 9',
       'issue': 'Charging port repair',
       'date': DateTime.now().subtract(const Duration(days: 15)),
@@ -59,7 +64,7 @@ class _RepairHistoryScreenState extends State<RepairHistoryScreen> {
     },
     {
       'id': 5,
-      'customerName': 'David Brown',
+      'customerName': 'Talha Khan',
       'deviceType': 'Xiaomi Mi 11',
       'issue': 'Camera repair',
       'date': DateTime.now().subtract(const Duration(days: 30)),
@@ -73,27 +78,30 @@ class _RepairHistoryScreenState extends State<RepairHistoryScreen> {
       case 'This Week':
         final now = DateTime.now();
         final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-        return _repairHistory.where((repair) => 
-          repair['date'].isAfter(startOfWeek) || 
-          repair['date'].isAtSameMomentAs(startOfWeek)
-        ).toList();
+        return _repairHistory
+            .where((repair) =>
+                repair['date'].isAfter(startOfWeek) ||
+                repair['date'].isAtSameMomentAs(startOfWeek))
+            .toList();
       case 'This Month':
         final now = DateTime.now();
         final startOfMonth = DateTime(now.year, now.month, 1);
-        return _repairHistory.where((repair) => 
-          repair['date'].isAfter(startOfMonth) || 
-          repair['date'].isAtSameMomentAs(startOfMonth)
-        ).toList();
+        return _repairHistory
+            .where((repair) =>
+                repair['date'].isAfter(startOfMonth) ||
+                repair['date'].isAtSameMomentAs(startOfMonth))
+            .toList();
       case 'Last Month':
         final now = DateTime.now();
         final startOfLastMonth = DateTime(now.year, now.month - 1, 1);
         final endOfLastMonth = DateTime(now.year, now.month, 0);
-        return _repairHistory.where((repair) => 
-          (repair['date'].isAfter(startOfLastMonth) || 
-          repair['date'].isAtSameMomentAs(startOfLastMonth)) &&
-          (repair['date'].isBefore(endOfLastMonth) || 
-          repair['date'].isAtSameMomentAs(endOfLastMonth))
-        ).toList();
+        return _repairHistory
+            .where((repair) =>
+                (repair['date'].isAfter(startOfLastMonth) ||
+                    repair['date'].isAtSameMomentAs(startOfLastMonth)) &&
+                (repair['date'].isBefore(endOfLastMonth) ||
+                    repair['date'].isAtSameMomentAs(endOfLastMonth)))
+            .toList();
       default:
         return _repairHistory;
     }
@@ -197,8 +205,8 @@ class _RepairHistoryScreenState extends State<RepairHistoryScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildStatItem('Total Repairs', totalRepairs.toString(), Icons.build),
-          _buildStatItem(
-              'Total Earnings', '\$${totalEarnings.toStringAsFixed(2)}', Icons.attach_money),
+          _buildStatItem('Total Earnings',
+              '\$${totalEarnings.toStringAsFixed(2)}', Icons.attach_money),
         ],
       ),
     );
@@ -234,7 +242,7 @@ class _RepairHistoryScreenState extends State<RepairHistoryScreen> {
       itemCount: filteredRepairs.length,
       itemBuilder: (context, index) {
         final repair = filteredRepairs[index];
-        
+
         return Card(
           margin: const EdgeInsets.only(bottom: 16),
           elevation: 2,
