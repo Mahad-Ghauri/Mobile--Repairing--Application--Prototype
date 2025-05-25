@@ -169,8 +169,3 @@ flowchart TD
     H --> J[Answer Added]
 ```
 
----
-
-## How to View Diagrams
-
-Copy and paste the Mermaid code blocks into a [Mermaid Live Editor](https://mermaid.live/) or use a Markdown viewer that supports Mermaid diagrams to visualize them.
