@@ -376,11 +376,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _getInitials(String name) {
     if (name.isEmpty) return '';
 
-    List<String> nameParts = name.split(' ');
+    List<String> nameParts =
+        name.split(' ').where((part) => part.isNotEmpty).toList();
+
+    if (nameParts.isEmpty) return '';
+
     if (nameParts.length > 1) {
       return nameParts[0][0].toUpperCase() + nameParts[1][0].toUpperCase();
+    } else if (nameParts[0].isNotEmpty) {
+      return nameParts[0][0].toUpperCase();
     } else {
-      return name[0].toUpperCase();
+      return '';
     }
   }
 
