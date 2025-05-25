@@ -4,7 +4,6 @@ import 'package:mobile_repairing_application__prototype/services/session_service
 import 'package:mobile_repairing_application__prototype/Views/Authentication/login_screen.dart';
 import 'package:mobile_repairing_application__prototype/Views/Dashboard/user_dashboard.dart';
 import 'package:mobile_repairing_application__prototype/Views/Dashboard/technician_dashboard.dart';
-import 'package:mobile_repairing_application__prototype/Views/Interface/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_repairing_application__prototype/services/session_service.dart';
 import 'package:mobile_repairing_application__prototype/Views/Authentication/login_screen.dart';
+import 'package:mobile_repairing_application__prototype/Views/Technician/schedule_screen.dart';
+import 'package:mobile_repairing_application__prototype/Views/Technician/repair_history_screen.dart';
+import 'package:mobile_repairing_application__prototype/Views/Technician/earnings_screen.dart';
+import 'package:mobile_repairing_application__prototype/Views/Technician/profile_screen.dart';
 
 class TechnicianDashboard extends StatelessWidget {
   final SessionService sessionService;
@@ -81,7 +85,14 @@ class TechnicianDashboard extends StatelessWidget {
                   Icons.calendar_month,
                   Colors.blue,
                   () {
-                    // TODO: Navigate to schedule
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ScheduleScreen(
+                          sessionService: sessionService,
+                        ),
+                      ),
+                    );
                   },
                 ),
                 _buildActionCard(
@@ -90,7 +101,14 @@ class TechnicianDashboard extends StatelessWidget {
                   Icons.history,
                   Colors.green,
                   () {
-                    // TODO: Navigate to repair history
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RepairHistoryScreen(
+                          sessionService: sessionService,
+                        ),
+                      ),
+                    );
                   },
                 ),
                 _buildActionCard(
@@ -99,7 +117,14 @@ class TechnicianDashboard extends StatelessWidget {
                   Icons.attach_money,
                   Colors.orange,
                   () {
-                    // TODO: Navigate to earnings
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EarningsScreen(
+                          sessionService: sessionService,
+                        ),
+                      ),
+                    );
                   },
                 ),
                 _buildActionCard(
@@ -108,7 +133,14 @@ class TechnicianDashboard extends StatelessWidget {
                   Icons.person,
                   Colors.purple,
                   () {
-                    // TODO: Navigate to profile
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(
+                          sessionService: sessionService,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ],
