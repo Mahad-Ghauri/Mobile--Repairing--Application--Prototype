@@ -62,8 +62,8 @@ class MyApp extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: const Color(0xFF3F51B5),
+            borderSide: const BorderSide(
+              color: Color(0xFF3F51B5),
               width: 2,
             ),
           ),
@@ -277,7 +277,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                       ),
                       const SizedBox(height: 30),
                       Text(
-                        'Mobile Repair',
+                        'Repairo',
                         style: GoogleFonts.poppins(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
