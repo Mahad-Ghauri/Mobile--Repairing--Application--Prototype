@@ -301,19 +301,19 @@ class UserDashboard extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // TODO: Navigate to new repair request
-        },
-        icon: const Icon(Icons.add),
-        label: Text(
-          'New Repair',
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     // TODO: Navigate to new repair request
+      //   },
+      //   icon: const Icon(Icons.add),
+      //   label: Text(
+      //     'New Repair',
+      //     style: GoogleFonts.poppins(
+      //       fontWeight: FontWeight.w500,
+      //     ),
+      //   ),
+      //   backgroundColor: Theme.of(context).primaryColor,
+      // ),
     );
   }
 
